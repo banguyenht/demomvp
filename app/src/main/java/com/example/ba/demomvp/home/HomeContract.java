@@ -9,6 +9,7 @@ import java.util.List;
 public interface HomeContract {
 
     interface View extends BaseView<Present> {
+
     }
 
     interface Present extends BasePresenter<View> {

@@ -25,6 +25,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         this.mContext = mContext;
     }
 
+    public void setItemClickListener(ItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
+    }
+
     @NonNull
     @Override
     public SongViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -40,13 +44,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         songViewHolder.mTextviewSong.setText(song.getName());
     }
 
-    public void setItemClickListener(ItemClickListener mItemClickListener) {
-        this.mItemClickListener = mItemClickListener;
-    }
 
     @Override
     public int getItemCount() {
-        return mListSong == null ? 0: mListSong.size();
+        return mListSong == null ? 0 : mListSong.size();
     }
 
     public class SongViewHolder extends RecyclerView.ViewHolder implements

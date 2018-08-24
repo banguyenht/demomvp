@@ -54,7 +54,7 @@ public class SongsFragment extends Fragment implements HomeContract.View,
     private void initComponents() {
         mPresent.onStart();
         mPresent = new HomePresenter(getContext());
-        mPresent.setT(this);
+        mPresent.setView(this);
         mList = new ArrayList<>();
         mPresent.loadDataSongs();
         mList = mPresent.getList();
@@ -73,4 +73,3 @@ public class SongsFragment extends Fragment implements HomeContract.View,
         Toast.makeText(getContext(), values , Toast.LENGTH_SHORT).show();
     }
 }
-

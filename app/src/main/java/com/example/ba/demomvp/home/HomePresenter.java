@@ -15,10 +15,6 @@ public class HomePresenter implements HomeContract.Present {
     private List<Song> mList;
     private HomeContract.View mView;
 
-    public void setView(HomeContract.View view) {
-        this.mView = view;
-    }
-
     public HomePresenter(Context context) {
         this.mContext = context;
         mResponsity =
@@ -36,7 +32,7 @@ public class HomePresenter implements HomeContract.Present {
     }
 
     @Override
-    public void setT(HomeContract.View view) {
+    public void setView(HomeContract.View view) {
         this.mView = view;
     }
 
@@ -44,5 +40,4 @@ public class HomePresenter implements HomeContract.Present {
     public void onStart() {
         mList = new ArrayList<>();
     }
-
 }
