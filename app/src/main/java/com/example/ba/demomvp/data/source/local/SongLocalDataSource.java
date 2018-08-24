@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
-import com.example.ba.demomvp.data.SongDataSource;
 import com.example.ba.demomvp.data.model.Song;
 
 import java.util.ArrayList;
@@ -17,6 +16,14 @@ public class SongLocalDataSource implements SongDataSource {
     private Context mContext;
     private List<Song> mListSong;
 
+    private static SongLocalDataSource mInstance;
+
+    public static SongLocalDataSource getInstance(Context context) {
+        if (mInstance == null){
+            mInstance = new SongLocalDataSource(context);
+        }
+        return mInstance;
+    }
 
     public SongLocalDataSource(Context context) {
         mListSong = new ArrayList<>();
@@ -24,32 +31,12 @@ public class SongLocalDataSource implements SongDataSource {
     }
 
     @Override
-    public List<Song> getListSong() {
-        loadData();
-        return mListSong;
-    }
-
-    @Override
-    public void loadDataSong(LoadDataCallback callback) {
-        callback.onLoadData(getListSong());
-    }
-
-    @Override
-    public int countSong() {
-        return getListSong().size();
-    }
-
-    @Override
-    public Song getItemSong(int position) {
-        return mListSong.get(position);
-    }
-    @Override
-    public void loadData() {
+    public List<Song> loadData() {
         Cursor cursor = mContext.getContentResolver().query(MediaStore
                         .Audio.Media.EXTERNAL_CONTENT_URI,
                 null, null, null, null);
         if (cursor == null) {
-            return;
+            return null;
         } else {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -68,5 +55,6 @@ public class SongLocalDataSource implements SongDataSource {
             }
             cursor.close();
         }
+        return mListSong;
     }
 }

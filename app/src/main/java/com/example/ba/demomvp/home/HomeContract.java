@@ -7,15 +7,13 @@ import com.example.ba.demomvp.data.model.Song;
 import java.util.List;
 
 public interface HomeContract {
+
     interface View extends BaseView<Present> {
-        void onUpdateUi(List<Song> songList);
     }
 
     interface Present extends BasePresenter<View> {
         void loadDataSongs();
 
-        int countSongs();
-
-        Song getItemSong(int positon);
+        List<Song> getList();
     }
 }

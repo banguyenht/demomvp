@@ -1,46 +1,28 @@
 package com.example.ba.demomvp.data.source;
 
-import android.content.Context;
-
-import com.example.ba.demomvp.data.SongDataSource;
+import com.example.ba.demomvp.data.source.local.SongDataSource;
 import com.example.ba.demomvp.data.model.Song;
 import com.example.ba.demomvp.data.source.local.SongLocalDataSource;
 
 import java.util.List;
 
-
-public class SongResponsitory implements SongDataSource {
+public class SongResponsitory {
     private SongDataSource mSongDataSource;
+    private SongLocalDataSource mSongLocalDataSource;
+    private static SongResponsitory mInstance;
 
-    public SongResponsitory(Context context) {
-        mSongDataSource = new SongLocalDataSource(context);
+    public static SongResponsitory getInstance(SongLocalDataSource songLocalDataSource) {
+        if (mInstance == null) {
+            mInstance = new SongResponsitory(songLocalDataSource);
+        }
+        return mInstance;
     }
 
-
-    @Override
-    public void loadData() {
-        mSongDataSource.loadData();
+    public SongResponsitory(SongLocalDataSource songLocalDataSource) {
+        this.mSongLocalDataSource = songLocalDataSource;
     }
 
-    @Override
-    public List<Song> getListSong() {
-        return mSongDataSource.getListSong();
-    }
-
-    @Override
-    public void loadDataSong(LoadDataCallback callback) {
-        callback.onLoadData(getListSong());
-    }
-
-    @Override
-    public int countSong() {
-        return mSongDataSource.countSong();
-    }
-
-    @Override
-    public Song getItemSong(int position) {
-        return mSongDataSource.getItemSong(position);
+    public List<Song> loadData() {
+        return mSongLocalDataSource.loadData();
     }
 }
-
-
