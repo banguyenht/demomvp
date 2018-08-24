@@ -4,14 +4,13 @@ import android.content.Context;
 
 import com.example.ba.demomvp.data.SongDataSource;
 import com.example.ba.demomvp.data.model.Song;
-import com.example.ba.demomvp.data.source.local.SongResponsity;
-
+import com.example.ba.demomvp.data.source.SongResponsitory;
 
 import java.util.List;
 
 public class HomePresenter implements HomeContract.Present {
     private Context mContext;
-    private SongResponsity mResponsity;
+    private SongResponsitory mResponsity;
     private HomeContract.View mView;
 
     public void setView(HomeContract.View view) {
@@ -24,13 +23,17 @@ public class HomePresenter implements HomeContract.Present {
 
     public HomePresenter(Context context) {
         this.mContext = context;
-        mResponsity = new SongResponsity();
-        mResponsity.setContext(getContext());
+        mResponsity = new SongResponsitory(getContext());
     }
 
     @Override
     public void loadDataSongs() {
-        sendData();
+        mResponsity.loadDataSong(new SongDataSource.LoadDataCallback() {
+            @Override
+            public void onLoadData(List<Song> songList) {
+                mView.onUpdateUi(songList);
+            }
+        });
     }
 
     @Override
@@ -43,23 +46,13 @@ public class HomePresenter implements HomeContract.Present {
         return mResponsity.getItemSong(positon);
     }
 
-    private void sendData() {
-        mResponsity.loadDataSong(new SongDataSource.LoadDataCallback() {
-            @Override
-            public void onLoadData(List<Song> songList) {
-                mView.onUpdateUi(songList);
-            }
-        });
-    }
-
-
     @Override
     public void setT(HomeContract.View view) {
-        this.mView=view;
+        this.mView = view;
     }
 
     @Override
     public void onStart() {
-        mResponsity.loadData();
     }
+
 }

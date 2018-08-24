@@ -8,6 +8,9 @@ public interface SongDataSource {
     interface LoadDataCallback {
         void onLoadData(List<Song> songList);
     }
+    void loadData();
+
+    List<Song> getListSong();
 
     void loadDataSong(LoadDataCallback callback);
 

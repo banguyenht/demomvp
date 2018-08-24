@@ -10,25 +10,24 @@ import com.example.ba.demomvp.data.model.Song;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongResponsity implements SongDataSource {
+public class SongLocalDataSource implements SongDataSource {
     private static final String COLUMN_SONG_NAME = "title";
     private static final String COLUMN_SONG_ARTIST = "artist";
     private static final String COLUMN_SONG_PATH = "_data";
     private Context mContext;
     private List<Song> mListSong;
 
-    public SongResponsity() {
-        mListSong = new ArrayList<>();
-    }
 
-    public void setContext(Context context) {
+    public SongLocalDataSource(Context context) {
+        mListSong = new ArrayList<>();
         this.mContext = context;
     }
 
+    @Override
     public List<Song> getListSong() {
+        loadData();
         return mListSong;
     }
-
 
     @Override
     public void loadDataSong(LoadDataCallback callback) {
@@ -42,10 +41,9 @@ public class SongResponsity implements SongDataSource {
 
     @Override
     public Song getItemSong(int position) {
-
         return mListSong.get(position);
     }
-
+    @Override
     public void loadData() {
         Cursor cursor = mContext.getContentResolver().query(MediaStore
                         .Audio.Media.EXTERNAL_CONTENT_URI,

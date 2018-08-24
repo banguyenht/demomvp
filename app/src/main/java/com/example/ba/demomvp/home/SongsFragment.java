@@ -31,16 +31,8 @@ public class SongsFragment extends Fragment implements HomeContract.View,
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container
             , @Nullable Bundle savedInstanceState) {
-//        mPresent = new HomePresenter(getContext());
-//        mPresent.setT(this);
         initComponents();
         View view = inflater.inflate(R.layout.songs_fragment, container, false);
-//        mRecyclerView = view.findViewById(R.id.recyclerview_songs);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mAdapter = new SongAdapter(this);
-//        mRecyclerView.setAdapter(mAdapter);
-//        mPresent.onStart();
-//        mPresent.loadDataSongs();
         initView(view);
         return view;
     }
@@ -66,9 +58,9 @@ public class SongsFragment extends Fragment implements HomeContract.View,
         return mPresent.getItemSong(positon);
     }
     private void initComponents(){
+        mPresent.onStart();
         mPresent = new HomePresenter(getContext());
         mPresent.setT(this);
-        mPresent.onStart();
         mAdapter = new SongAdapter(this);
         mPresent.loadDataSongs();
     }

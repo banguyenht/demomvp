@@ -27,6 +27,5 @@ public class SongsActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.framelayout_container,mFragment);
         transaction.commit();
-
     }
 }
